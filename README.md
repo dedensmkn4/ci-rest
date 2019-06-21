@@ -22,7 +22,7 @@ mysql -u root -p
 root
 ```
 
-Import db from [database/db_ota.sql](https://github.com/dedensmkn4/ci-rest/database)
+Import db from [database/db_ota.sql](https://github.com/dedensmkn4/ci-rest/tree/master/database)
 
 2. With Manual
 
