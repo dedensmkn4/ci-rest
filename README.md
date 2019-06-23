@@ -53,9 +53,20 @@ application/config/database.php
 application/modules/api/config/codeigniter-predis.php
 ```
  3. Rabbit mq
+
 ```bash
 application/modules/api/config/rabbitmq.php
 ```
+## Documentation API
+1. List Ticket
+&nbsp;[http://localhost:9090/ci-rest/api/tiket](http:9090//localhost/ci-rest/api/tiket) | GET
+2. Booking Ticket
+[http://localhost:9090/ci-rest/api/booking](http://localhost:9090/ci-rest/api/booking) | POST
+
+## Flow & Technology
+1. Show data ticket with stock available [http://localhost:9090/ci-rest](http:9090//localhost/ci-rest) with rest service and secure id token change with code_ticket random string and save code_ticket in redis. Code ticket is a unique every reload and can be used once and will expired in 1 hour 
+2. Booking ticket with code ticket selected. Required field name, the birth of date and email. validation in front and backend email, format date and code ticket must available. Process in backend save code ticket, code booking, id booking, id ticket, code ticket, name, email, the birth of date to Redis. Save id booking, id ticket, email to MySql. If code ticket is available in the ticket will be processed. Decrement stock. Send email to the user will be processed with the asynchronous method. In backend will be sent queue to rabbitmq with message code booking.
+3. service [http:9090//localhost/ci-rest/api/consume](http:9090//localhost/ci-rest/api/consume) will consume message queue rabbitmq. Use message(code booking) to select data in Redis to get detail information and service will be sent email to user email
 
 ## License
 [Deden Farhan](mailto:deden@swamedia.co.id)
